@@ -17,3 +17,14 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+
+    - image: cuevasgpablo/client
+      context: client
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: '**/*.ts'
+            dest: .
+          - src: '**/*.vue'
+            dest: .
