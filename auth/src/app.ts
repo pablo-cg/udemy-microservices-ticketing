@@ -1,12 +1,11 @@
 import express from 'express';
+import cookieSession from 'cookie-session';
 import 'express-async-errors';
 import { currentUserRouter } from './routes/current-user';
 import { signInRouter } from './routes/sign-in';
 import { signOutRouter } from './routes/sign-out';
 import { signUpRouter } from './routes/sign-up';
-import { errorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './errors/not-found.error';
-import cookieSession from 'cookie-session';
+import { NotFoundError, errorHandler } from '@pcg-tickets/common';
 
 export const app = express();
 

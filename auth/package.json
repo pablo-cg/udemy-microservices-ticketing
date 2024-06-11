@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@pcg-tickets/common": "^1.0.4",
     "cookie-session": "^2.1.0",
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
