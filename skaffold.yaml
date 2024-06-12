@@ -28,3 +28,12 @@ build:
             dest: .
           - src: '**/*.vue'
             dest: .
+
+    - image: cuevasgpablo/tickets
+      context: tickets
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: '**/*.ts'
+            dest: .
