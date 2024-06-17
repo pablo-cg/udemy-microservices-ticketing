@@ -2,6 +2,8 @@ import { requireAuth, validateRequest } from '@pcg-tickets/common';
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import { Ticket } from '../models/ticket';
+import { TicketCreatedPublisher } from '../events/publishers/ticket-created.publisher';
+import { natsClientWrapper } from '../nats-client-wrapper';
 
 const router = express.Router();
 
@@ -15,12 +17,23 @@ router.post(
   requireAuth,
   validations,
   validateRequest,
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     const { title, price } = req.body;
 
     const ticket = Ticket.build({ title, price, userId: req.currentUser!.id });
 
-    ticket.save();
+    await ticket.save();
+
+    const ticketCreatedPublisher = new TicketCreatedPublisher(
+      natsClientWrapper.client,
+    );
+
+    ticketCreatedPublisher.publish({
+      id: ticket.id,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+    });
 
     res.status(201).send(ticket);
   },
