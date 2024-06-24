@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@pcg-tickets/common':
-        specifier: ^1.0.8
-        version: 1.0.8
+        specifier: ^1.0.10
+        version: 1.0.10
       cookie-session:
         specifier: ^2.1.0
         version: 2.1.0
@@ -342,8 +342,8 @@ packages:
   '@mongodb-js/saslprep@1.1.6':
     resolution: {integrity: sha512-jqTTXQ46H8cAxmXBu8wm1HTSIMBMrIcoVrsjdQkKdMBj3il/fSCgWyya4P2I1xjPBl69mw+nRphrPlcIqBd20Q==}
 
-  '@pcg-tickets/common@1.0.8':
-    resolution: {integrity: sha512-M+WZxygql5GD2/B1H2BeKB1TwQ3QRoPbu77hv7Ji8A6ITP33hNcF9Oz5V2qf2NoeOiGvBaUvNl8tY3vUJ2qH0A==}
+  '@pcg-tickets/common@1.0.10':
+    resolution: {integrity: sha512-dgGDam99EDSQR2tSPz15gGYgfUgYTWRDJyDi0lN2H5A/WYfZErcjap3mcxGEt8YDZasjsIrxCRlPy1X3CQVxuw==}
 
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
@@ -2445,7 +2445,7 @@ snapshots:
     dependencies:
       sparse-bitfield: 3.0.3
 
-  '@pcg-tickets/common@1.0.8':
+  '@pcg-tickets/common@1.0.10':
     dependencies:
       '@types/cookie-session': 2.0.49
       '@types/express': 4.17.21
