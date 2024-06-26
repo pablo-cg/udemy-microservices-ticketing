@@ -3,6 +3,7 @@ import { app } from '../../app';
 import { Ticket } from '../../models/ticket';
 import { Order, OrderStatus } from '../../models/order';
 import { natsClientWrapper } from '../../nats-client-wrapper';
+import mongoose from 'mongoose';
 
 it('mark an order as cancelled', async () => {
   const cookie = signin();
@@ -10,6 +11,7 @@ it('mark an order as cancelled', async () => {
   const ticker = Ticket.build({
     title: 'concert',
     price: 20,
+    id: new mongoose.Types.ObjectId().toHexString(),
   });
 
   await ticker.save();
@@ -39,6 +41,7 @@ it('emits an order cancelled event', async () => {
   const ticker = Ticket.build({
     title: 'concert',
     price: 20,
+    id: new mongoose.Types.ObjectId().toHexString(),
   });
 
   await ticker.save();

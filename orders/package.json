@@ -18,13 +18,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@pcg-tickets/common": "^1.0.10",
+    "@pcg-tickets/common": "^1.0.11",
     "cookie-session": "^2.1.0",
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.4",
+    "mongoose-update-if-current": "^1.4.0",
     "node-nats-streaming": "^0.3.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"

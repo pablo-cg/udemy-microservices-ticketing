@@ -1,6 +1,7 @@
 import { OrderStatus } from '@pcg-tickets/common';
 import { Document, Model, Schema, model } from 'mongoose';
-import { Ticket, TicketDoc } from './ticket';
+import { TicketDoc } from './ticket';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 interface OrderAttrs {
   userId: string;
@@ -13,6 +14,7 @@ interface OrderDoc extends Document {
   userId: string;
   status: OrderStatus;
   expiresAt: Date;
+  version: number;
   ticket: TicketDoc;
 }
 
@@ -49,6 +51,9 @@ const orderSchema = new Schema(
     },
   },
 );
+
+orderSchema.set('versionKey', 'version');
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order(attrs);
