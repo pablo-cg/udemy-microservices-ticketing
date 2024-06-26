@@ -35,7 +35,7 @@ build:
         dockerfile: dockerfile
       sync:
         manual:
-          - src: '**/*.ts'
+          - src: 'src/**/*.ts'
             dest: .
 
     - image: cuevasgpablo/orders
@@ -44,5 +44,14 @@ build:
         dockerfile: dockerfile
       sync:
         manual:
-          - src: '**/*.ts'
+          - src: 'src/**/*.ts'
+            dest: .
+
+    - image: cuevasgpablo/expiration
+      context: expiration
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
             dest: .
