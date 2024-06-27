@@ -1,3 +1,4 @@
+import { OrderCreatedListener } from './events/listeners/order-created.listener';
 import { natsClientWrapper } from './nats-client-wrapper';
 
 async function start() {
@@ -11,6 +12,10 @@ async function start() {
 
   if (!process.env.NATS_CLUSTER_ID) {
     throw new Error('NATS_CLUSTER_ID must be defined');
+  }
+
+  if (!process.env.REDIS_HOST) {
+    throw new Error('REDIS_HOST must be defined');
   }
 
   try {
@@ -28,7 +33,9 @@ async function start() {
     process.on('SIGINT', () => natsClientWrapper.client.close());
     process.on('SIGTERM', () => natsClientWrapper.client.close());
 
-    console.log("🚀 ~ start ~ Expiration service")
+    new OrderCreatedListener(natsClientWrapper.client).listen();
+
+    console.log('🚀 ~ start ~ Expiration service');
   } catch (error) {
     console.error('🚀 ~ start ~ error:', error);
   }
