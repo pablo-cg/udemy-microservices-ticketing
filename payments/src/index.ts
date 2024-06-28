@@ -1,14 +1,16 @@
 import mongoose from 'mongoose';
 import { app } from './app';
 import { natsClientWrapper } from './nats-client-wrapper';
-import { TicketCreatedListener } from './events/listeners/ticket-created.listener';
-import { TicketUpdatedListener } from './events/listeners/ticket-updated.listener';
-import { ExpirationCompleteListener } from './events/listeners/expiration-complete.listener';
-import { PaymentCreatedListener } from './events/listeners/payment-created.listener';
+import { OrderCancelledListener } from './events/listeners/order-cancelled.listener';
+import { OrderCreatedListener } from './events/listeners/order-created.listener';
 
 async function start() {
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined');
+  }
+
+  if (!process.env.STRIPE_KEY) {
+    throw new Error('STRIPE_KEY must be defined');
   }
 
   if (!process.env.MONGO_URI) {
@@ -42,10 +44,8 @@ async function start() {
     process.on('SIGINT', () => natsClientWrapper.client.close());
     process.on('SIGTERM', () => natsClientWrapper.client.close());
 
-    new TicketCreatedListener(natsClientWrapper.client).listen();
-    new TicketUpdatedListener(natsClientWrapper.client).listen();
-    new ExpirationCompleteListener(natsClientWrapper.client).listen();
-    new PaymentCreatedListener(natsClientWrapper.client).listen();
+    new OrderCancelledListener(natsClientWrapper.client).listen();
+    new OrderCreatedListener(natsClientWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URI);
     console.log('🚀 ~ start ~ connected to mongodb');
@@ -54,7 +54,7 @@ async function start() {
   }
 
   app.listen(3000, () => {
-    console.log('🚀 ~ Orders Listening on port: 3000');
+    console.log('🚀 ~ Payments Listening on port: 3000');
   });
 }
 

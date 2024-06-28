@@ -24,6 +24,10 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
       throw new NotFoundError();
     }
 
+    if (foundOrder.status === OrderStatus.COMPLETE) {
+      return msg.ack();
+    }
+
     foundOrder.set({ status: OrderStatus.CANCELLED });
 
     await foundOrder.save();
