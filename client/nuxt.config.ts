@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+
   app: {
     head: {
       link: [
@@ -17,4 +18,11 @@ export default defineNuxtConfig({
       ],
     },
   },
+
+  // modules: ['@unlok-co/nuxt-stripe'],
+  // stripe: {
+  //   client: {
+  //     key: '',
+  //   },
+  // },
 });
