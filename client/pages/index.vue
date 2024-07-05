@@ -10,7 +10,7 @@ const { data: tickets } = useAsyncData('tickets', () =>
 
 <template>
   <main class="container my-3">
-    <h1>Tickets</h1>
+    <h1>The Tickets</h1>
     <table class="table">
       <thead>
         <tr>
