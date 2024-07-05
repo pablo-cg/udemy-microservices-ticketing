@@ -1,0 +1,45 @@
+name: deploy-client
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'client/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v4
+        
+      - 
+        name: Build Docker Image
+        run: cd client && docker build -t cuevasgpablo/client .
+        
+      - 
+        name: Docker Login
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          
+      - 
+        name: Push Docker Image
+        run: docker push cuevasgpablo/client
+
+      - 
+        name: Config DigitalOcean CLI
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      -
+        name: Set DigitalOcean Kubernetes Cluster
+        run: doctl kubernetes cluster kubeconfig save ticketing
+
+      -
+        name: Restart client deployment
+        run: kubectl rollout restart deployment client-depl
