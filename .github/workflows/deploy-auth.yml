@@ -11,10 +11,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: cd auth && docker build -t cuevasgpablo/auth .
-      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - 
+        name: Checkout
+        uses: actions/checkout@v4
+        
+      - 
+        name: Build Docker Image
+        run: cd auth && docker build -t cuevasgpablo/auth .
+        
+      - 
+        name: Docker Login
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker push cuevasgpablo/auth
+          
+      - 
+        name: Push Docker Image
+        run: docker push cuevasgpablo/auth
