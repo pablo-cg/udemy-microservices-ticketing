@@ -29,3 +29,17 @@ jobs:
       - 
         name: Push Docker Image
         run: docker push cuevasgpablo/auth
+
+      - 
+        name: Config DigitalOcean CLI
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      -
+        name: Set DigitalOcean Kubernetes Cluster
+        run: doctl kubernetes cluster kubeconfig save ticketing
+
+      -
+        name: Restart auth deployment
+        run: kubectl rollout restart deployment auth-depl
